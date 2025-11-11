@@ -8,25 +8,28 @@ This project uses a **Convolutional Neural Network (CNN)** to classify potato le
 ---
 
 ## 📂 Project Overview
-Potato crops are often affected by fungal and bacterial diseases. This project aims to automate the detection of these diseases using image classification techniques in deep learning.
+Potato crops are often affected by fungal and bacterial diseases. This project aims to automate the detection of these diseases using deep learning image classification.
+
+The trained model is deployed using **Gradio** for an interactive web interface.
 
 ---
 
 ## 🚀 Features
 - Image preprocessing and data augmentation  
-- CNN model built with **TensorFlow/Keras**  
-- Trained on the **PlantVillage** dataset  
+- CNN model built with **TensorFlow / Keras**  
 - Achieved ~97% validation accuracy  
-- Easy model testing with new images  
+- Deployed with **Gradio (Hugging Face Spaces)**  
+- Allows real-time image upload and prediction  
 
 ---
 
 ## 🧰 Tech Stack
 - **Python**
 - **TensorFlow / Keras**
+- **Gradio**
 - **NumPy**
+- **Pillow**
 - **Matplotlib**
-- **OpenCV**
 - **scikit-learn**
 
 ---
@@ -40,8 +43,13 @@ Classes used:
 
 ---
 
-## ⚙️ How to Run
+## ⚙️ How to Run Locally
 
 1. Clone the repository:
    ```bash
    git clone https://github.com/Vivekpadavale11/potato_plant_Disease_prediction.git
+   cd potato_plant_Disease_prediction
+   
+## 🌐 Live Demo
+Try the deployed version on Hugging Face:  
+👉 [Potato Disease Classification App](https://huggingface.co/spaces/vivekpadavale11/potato-disease-classification-gradio)
