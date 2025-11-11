@@ -1,33 +1,31 @@
-import streamlit as st
+import gradio as gr
 import tensorflow as tf
-from tensorflow.keras.preprocessing import image
 import numpy as np
+from tensorflow.keras.preprocessing import image
 from PIL import Image
 
 # Load model
 model = tf.keras.models.load_model("potato_disease_model.h5")
 
-# Class names
+# Class labels
 class_names = ['Potato___Early_blight', 'Potato___Late_blight', 'Potato___healthy']
 
-# App title
-st.title("🥔 Potato Disease Classification")
-st.write("Upload a potato leaf image to predict its health status.")
-
-# File uploader
-uploaded_file = st.file_uploader("Choose a leaf image", type=["jpg", "jpeg", "png"])
-
-if uploaded_file is not None:
-    img = Image.open(uploaded_file).convert('RGB')
-    st.image(img, caption="Uploaded Image", use_column_width=True)
-
-    # Preprocess image
+def predict(img):
+    img = img.convert("RGB")
     img = img.resize((128, 128))
     img_array = np.array(img) / 255.0
     img_array = np.expand_dims(img_array, axis=0)
-
-    # Prediction
     prediction = model.predict(img_array)
     predicted_class = class_names[np.argmax(prediction)]
+    confidence = round(100 * np.max(prediction), 2)
+    return {predicted_class: confidence}
 
-    st.success(f"Predicted Class: **{predicted_class}**")
+interface = gr.Interface(
+    fn=predict,
+    inputs=gr.Image(type="pil"),
+    outputs=gr.Label(num_top_classes=3),
+    title="🥔 Potato Disease Classification",
+    description="Upload a potato leaf image to detect Early Blight, Late Blight, or Healthy leaf."
+)
+
+interface.launch()
